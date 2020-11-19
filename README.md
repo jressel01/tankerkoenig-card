@@ -15,20 +15,24 @@ resources:
     type: js
 views:
   - cards:
-      - type: 'custom:tankerkoenig-card'
-        name: Benzinpreise
-        show:
-          - e5
-          - e10
-        stations:
-          - name: Kölner Str.
-            brand: ARAL
-            e5: sensor.aral_kolner_str_e5
-            e10: sensor.aral_kolner_str_e10
-          - name: Untergath
-            brand: ARAL
-            e5: sensor.aral_untergath_e5
-            e10: sensor.aral_untergath_e10
+    type: 'custom:tankerkoenig-card'
+    show_header: false
+    show:
+      - diesel
+      - opcl
+    stations:
+      - name: M1 Vollbüttel
+        straße: Hauptstr. 2
+        brand: M1
+        diesel: sensor.m1_ribbesbuttel_diesel
+        opcl: binary_sensor.m1_ribbesbuttel_state
+      - name: Raiffeisen Meinersen
+        straße: Auf der Schafweide
+        brand: Raiffeisen
+        diesel: sensor.raiffeisen_waren_gmbh_diesel
+        opcl: binary_sensor.raiffeisen_waren_gmbh_state
+
+
 ```
 
 ### Options
@@ -37,6 +41,7 @@ views:
 | `name`     | String            | yes      | Name of the card that should be shown in the frontend
 | `show`     | [e5, e10, diesel] | yes      | What should be shown
 | `stations` | List of stations  | yes      | List of stations
+...
 
 #### Stations
 | key      | value  | required | description
@@ -46,6 +51,7 @@ views:
 | `e5`     | Sensor | no*      | Sensor for the E5 price
 | `e10`    | Sensor | no*      | Sensor for the E10 price
 | `diesel` | Sensor | no*      | Sensor for the diesel price
+.....
 
 *only required if it should be shown
 
