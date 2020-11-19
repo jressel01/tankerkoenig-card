@@ -2,8 +2,12 @@ class TankerkoenigCard extends HTMLElement {
         set hass(hass) {
                 if(!this.content) {
                         const card = document.createElement('ha-card');
-
+                        if(this.config.show_header == true) {
+                          
                         card.header = this.config.name || 'Tankerkönig';
+                        } else {
+                        card.header = '';
+                        }
 
                         this.content = document.createElement('div');
                         this.content.className = 'container';
@@ -26,6 +30,7 @@ class TankerkoenigCard extends HTMLElement {
                 const e5 = this.config.show.indexOf('e5') !== -1;
                 const e10 = this.config.show.indexOf('e10') !== -1;
                 const diesel = this.config.show.indexOf('diesel') !== -1;
+                const opcl = this.config.show.indexOf('opcl') !== -1;
 
                 let content = `<table width="100%">`;
 
@@ -38,8 +43,14 @@ class TankerkoenigCard extends HTMLElement {
                         content += `
                             <tr>
                                 <td class="logo"><img height="40" width="40" src="/local/gasstation_logos/${station.brand.toLowerCase()}.png"></td>
-                                <td class="street">${station.name}</td>
+                                <td class="street">${station.name}<br />${station.straße}</td>
                         `;
+                        if(opcl) {
+                                state = hass.states[station.opcl] || null;
+                                label = '';
+
+                                content += this._getCol2(state, label);
+                        }
 
                         if(e5) {
                                 state = hass.states[station.e5] || null;
@@ -70,6 +81,20 @@ class TankerkoenigCard extends HTMLElement {
                 this.content.innerHTML = content;
         }
 
+        _getCol2(state, label) {
+                if(state) {
+                  var tmp='';
+                  if(state.state=='on') {tmp='open'} else {tmp='close'};
+                        return `
+                              <td><ha-label-badge
+                              value="${tmp}"
+                              label="${label}"
+                              ></ha-label-badge></td>
+                        `;
+                } else {
+                        return '<td></td>';
+                }
+        }
         _getCol(state, label) {
                 if(state) {
                         return `
