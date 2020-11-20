@@ -59,9 +59,9 @@ views:
 To use the icons you have to use uppercase names, which has to be the same as in the `brand` settings. The icons must be in `*.png` format.
 
 ### Example
-For the brand ARAL there has to be an icon with the following path:
+For the brand ARAL there has to be an icon with the following path(lower case):
 
-`/www/gasstation_logos/ARAL.png`
+`/www/gasstation_logos/aral.png`
 
 # Support me / Follow me
 [![Web](https://img.shields.io/badge/www-panbachi.de-blue.svg?style=flat-square&colorB=3d72a8&colorA=333333)](https://www.panbachi.de)
